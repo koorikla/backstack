@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: all
+  title: 'All'
+spec:
+  type: url
+  targets:
+    - ./templates/xqueue-claim/template.yaml
+    - ./components.yaml
+    - ../examples/org.yaml

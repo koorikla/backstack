@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: localstack
+  labels:
+    backstage.io/kubernetes-id: localstack
+    backstage.io/kubernetes-namespace: localstack-system
+spec:
+  selector:
+    app: localstack
+  ports:
+    - protocol: TCP
+      port: 4566
+      targetPort: 4566
+  type: ClusterIP

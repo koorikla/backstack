@@ -1,0 +1,122 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: backstage
+  description: Represents the Backstage developer portal ecosystem.
+spec:
+  owner: guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: infrastructure
+  description: Manages infrastructure resources provisioned through Crossplane across environments and cloud accounts.
+spec:
+  owner: guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: localstack
+  description: Represents the local development environment that emulates AWS services through LocalStack for testing infrastructure provisioning and integrations.
+spec:
+  owner: guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: argocd
+  description: Represents the Argo CD system responsible for GitOps-based application deployment and continuous delivery workflows.
+spec:
+  owner: guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: crossview
+  description: Represents the Crossview system, offering a web-based UI to enhance the visibility and management of Crossplane resources.
+spec:
+  owner: guests
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage
+  description: Backstage is an internal developer portal that centralizes software components, documentation, and tools to streamline developer workflows.
+  annotations:
+    backstage.io/kubernetes-id: backstage
+  links:
+    - url: http://localhost:3000
+      title: Backstage UI
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: backstage
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-postgres
+  description: PostgreSQL database instance used to persist Backstage metadata and catalog information.
+  annotations:
+    backstage.io/kubernetes-id: backstage-postgres
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: backstage
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: localstack
+  description: LocalStack simulates AWS cloud services locally, enabling development and testing of infrastructure components without requiring access to real AWS environments.
+  annotations:
+    backstage.io/kubernetes-id: localstack
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: localstack
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: argocd-server
+  description: Argo CD Server component responsible for providing the user interface and API server functionalities for managing application deployments through GitOps workflows.
+  annotations:
+    backstage.io/kubernetes-id: argocd-server
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: argocd
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: crossview
+  description: Crossview provides a user-friendly interface for visualizing, managing, and interacting with Crossplane resources across clusters.
+  annotations:
+    backstage.io/kubernetes-id: crossview
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: crossview
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: crossview-postgres
+  description: PostgreSQL database instance used to persist Crossview data and application state.
+  annotations:
+    backstage.io/kubernetes-id: crossview-postgres
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: crossview
+

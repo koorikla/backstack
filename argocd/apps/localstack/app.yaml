@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: localstack-app
+  namespace: argocd-system
+spec:
+  project: default
+  source:
+    repoURL: https://localstack.github.io/helm-charts
+    chart: localstack
+    targetRevision: 0.6.7
+    helm:
+      releaseName: localstack
+      valueFiles:
+        - values.yaml
+      # `valueFiles` does not resolve for a chart-repo source, so the image tag is
+      # pinned inline here. `latest` now resolves to the 2026.x unified image, which
+      # refuses to start without a LOCALSTACK_AUTH_TOKEN.
+      parameters:
+        - name: image.tag
+          value: "4.14.0"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: localstack-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
